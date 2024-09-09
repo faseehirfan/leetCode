@@ -37,3 +37,13 @@ class Solution(object):
             second.next = tmp1
             first, second = tmp1, tmp2
 
+
+#TAKEAWAYS:
+
+# I got the general idea down, but got stuck when it came to finding the second half of the list. 
+# To find the second half, use the slow/fast strategy, increment slow by 1 and fast by 2. 
+# Second half will then start from slow.next. 
+
+# From there its just simple list operations:
+
+# Reverse the second half of the list, then merge. 
