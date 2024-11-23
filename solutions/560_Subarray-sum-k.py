@@ -5,9 +5,7 @@ class Solution:
         sum = 0
         for n in nums:
             sum += n
-            if sum - k in pre_dict:
-                res += pre_dict[sum-k]
+            res += pre_dict.get(sum - k, 0)
             pre_dict[sum] = 1 + pre_dict.get(sum, 0)
             
-
         return res
