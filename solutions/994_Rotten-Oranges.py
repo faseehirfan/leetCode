@@ -5,7 +5,6 @@ class Solution:
         q = deque()
         visited = set()
         fresh = 0
-        directions = [(1,0), (-1,0), (0,1), (0,-1)]
 
         for r in range(rows):
             for c in range(cols):
