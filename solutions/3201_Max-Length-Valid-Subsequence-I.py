@@ -1,13 +1,19 @@
 class Solution:
     def maximumLength(self, nums: List[int]) -> int:
-        n = len(nums)
-        dp = [[1, 1] for _ in range(n)]
-        max_len = 1
-
-        for i in range(n):
-            for j in range(i):
-                parity = (nums[j] + nums[i]) % 2
-                dp[i][parity] = max(dp[i][parity], dp[j][parity] + 1)
-                max_len = max(max_len, dp[i][parity])
+        count_even = 0
+        count_odd = 0
+        for num in nums:
+            if num % 2 == 0:
+                count_even += 1
+            else:
+                count_odd += 1
         
-        return max_len
+        even_dp = 0
+        odd_dp = 0
+        for num in nums:
+            if num % 2 == 0:
+                even_dp = max(even_dp, odd_dp + 1)
+            else:
+                odd_dp = max(odd_dp, even_dp + 1)
+        
+        return max(count_even, count_odd, even_dp, odd_dp)
