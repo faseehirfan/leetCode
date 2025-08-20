@@ -16,3 +16,28 @@ class Solution:
 
         backtrack(0, [], 0)
         return res
+
+
+# second run Aug 19
+
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+
+        def backtrack(i, cur_sum, combination):
+            if cur_sum == target:
+                res.append(combination[:])
+                return
+            if cur_sum > target or i >= len(candidates):
+                return
+           
+            combination.append(candidates[i])
+            backtrack(i, cur_sum + candidates[i], combination)
+
+            combination.pop()
+            backtrack(i+1, cur_sum, combination)
+
+        backtrack(0, 0, [])
+        return res
+
+
