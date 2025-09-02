@@ -72,3 +72,62 @@ class LRUCache(object):
 
 # TAKEAWAYS:
 # need to make your own node class and implement doubly linked list. i used a deque and got screwed. 
+
+
+
+# RERUN ON SEPT 2 2025
+
+class Node:
+    def __init__(self, key=0, val=0, prev=None, next=None):
+        self.key = key
+        self.val = val
+        self.prev = prev
+        self.next = next
+
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = {}
+        self.head = Node()
+        self.tail = Node()
+        self.head.prev = self.tail
+        self.tail.next = self.head
+
+
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+
+        node = self.cache[key]
+        self.evict(node)
+        self.insert(node)
+        return node.val
+
+    def put(self, key: int, value: int) -> None:
+        node = Node(key, value)
+
+        if key in self.cache:
+            self.evict(self.cache[key])
+
+        self.cache[key] = node
+        self.insert(node)
+
+        if len(self.cache) > self.capacity:
+            lru = self.tail.next
+            self.evict(lru)
+            del self.cache[lru.key]
+
+    def evict(self, node):
+        prev, next = node.prev, node.next
+        prev.next, next.prev = next, prev
+
+    def insert(self, node):
+        prev = self.head.prev
+        prev.next = self.head.prev = node
+        node.prev, node.next = prev, self.head
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
